@@ -26,7 +26,7 @@ import java.util.List;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig  {
-    private JwtRequestFilter jwtRequestFilter;
+    private final JwtRequestFilter jwtRequestFilter;
     private final AppUserDetailsService userDetailsService;
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {

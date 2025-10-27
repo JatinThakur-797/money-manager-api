@@ -6,6 +6,7 @@ import in.jatinthakur.moneymanager.entity.ProfileEntity;
 import in.jatinthakur.moneymanager.repository.ProfileRepository;
 import in.jatinthakur.moneymanager.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,9 +18,14 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 import java.util.UUID;
 
+
+
 @Service
 @RequiredArgsConstructor
 public class ProfileService {
+    @Value("${money.manager.backend.url}")
+    private String activationUrl;
+
     private final PasswordEncoder passwordEncoder;
     private final ProfileRepository profileRepo;
     private final EmailService emailService;
@@ -33,7 +39,7 @@ public class ProfileService {
         System.out.println(profileEntity);
 
         //Send Acctivation Email
-        String activationLink = "http://localhost:8080/api/v1.0/activate?token=" + profileEntity.getActivationToken();
+        String activationLink = activationUrl + "/api/v1.0/activate?token=" + profileEntity.getActivationToken();
         String subject = "Activate you Money Manager account";
         String body = "Click on the following link to activate your Money Manager account." + activationLink;
         emailService.sendEmail(profileEntity.getEmail(), subject, body);

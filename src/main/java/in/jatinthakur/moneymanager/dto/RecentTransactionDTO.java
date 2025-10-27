@@ -1,25 +1,28 @@
 package in.jatinthakur.moneymanager.dto;
 
+import lombok.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CategoryDTO {
+@ToString
+public class RecentTransactionDTO {
 
     private Long id;
     private Long profileId;
     private String name;
-    private String type; // e.g., "income" or "expense"
     private String icon;
+    private BigDecimal amount;
+    private LocalDate date;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private String type; // "INCOME" or "EXPENSE"
+
+
 
 }
