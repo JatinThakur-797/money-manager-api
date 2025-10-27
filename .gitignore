@@ -1,6 +1,9 @@
 HELP.md
 .mvn/wrapper/maven-wrapper.jar
-target/
+target/classes
+target/generated-sources
+target/maven-archiver
+target
 !target/*.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
