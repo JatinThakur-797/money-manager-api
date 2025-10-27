@@ -21,11 +21,12 @@ public class EmailService {
         try{
             MimeMessage mimeMessage = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-
+            helper.setFrom(fromEmail);
             helper.setTo(toEmail);
             helper.setSubject(subject);
             helper.setText(body, true);
-
+            System.out.println("From Email: " + fromEmail);
+            System.out.println("Sending email to: " + toEmail);
             mailSender.send(mimeMessage);
 
         }catch (Exception e){
