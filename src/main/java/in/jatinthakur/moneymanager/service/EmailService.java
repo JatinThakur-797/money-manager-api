@@ -1,5 +1,6 @@
 package in.jatinthakur.moneymanager.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -11,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
+@RequiredArgsConstructor
 public class EmailService {
 
     @Value("${brevo.api.key}")
@@ -19,13 +21,6 @@ public class EmailService {
     private final WebClient.Builder webClientBuilder;
     private final TemplateEngine templateEngine;
 
-    private final String fromEmail = "jt6266042@gmail.com";
-    private final String fromName = "Money Manager App";
-
-    public EmailService(WebClient.Builder webClientBuilder, TemplateEngine templateEngine) {
-        this.webClientBuilder = webClientBuilder;
-        this.templateEngine = templateEngine;
-    }
 
     // --- METHOD 1: FOR YOUR NOTIFICATION SERVICE ---
     // This method accepts a pre-processed HTML string as the body.
@@ -53,6 +48,8 @@ public class EmailService {
                 .build();
 
         Map<String, Object> payload = new HashMap<>();
+        String fromEmail = "jt6266042@gmail.com";
+        String fromName = "Money Manager App";
         payload.put("sender", Map.of("email", fromEmail, "name", fromName));
         payload.put("to", new Object[]{Map.of("email", to)});
         payload.put("subject", subject);
