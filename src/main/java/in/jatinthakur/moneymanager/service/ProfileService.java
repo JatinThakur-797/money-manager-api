@@ -44,7 +44,7 @@ public class ProfileService {
         profileEntity.setActivationToken(UUID.randomUUID().toString());
         System.out.println(profileEntity);
 
-        String activationLink = activationUrl + "/api/v1.0/activate?token=" + profileEntity.getActivationToken();
+        String activationLink = activationUrl + "api/v1.0/activate?token=" + profileEntity.getActivationToken();
         String subject = "Activate your Money Manager account";
 
         // 2. Create the HTML body right here using Thymeleaf.
