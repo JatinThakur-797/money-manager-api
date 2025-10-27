@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Daily Expense Summary</title>
+</head>
+<body style="font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f7f9fc; color: #333;">
+
+<div style="max-width: 600px; margin: auto; background-color: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">
+
+    <div style="text-align: center; border-bottom: 2px solid #eeeeee; padding-bottom: 20px; margin-bottom: 20px;">
+        <h1 style="color: #0056b3; font-size: 24px; margin: 0;">Daily Expense Summary</h1>
+        <p style="color: #555; font-size: 16px; margin: 5px 0 0;" th:text="${'For ' + #temporals.format(date, 'MMMM dd, yyyy')}">For October 26, 2025</p>
+    </div>
+
+    <p style="font-size: 16px; line-height: 1.6;">
+        Hi <strong th:text="${userName}">Jatin Thakur</strong>,
+    </p>
+
+    <p style="font-size: 16px; line-height: 1.6;">
+        Here is your expense summary for today. Keeping an eye on your daily spending is a great step towards achieving your financial goals.
+    </p>
+
+    <table style="width: 100%; border-collapse: collapse; margin: 30px 0;">
+        <thead>
+        <tr style="background-color: #007bff; color: #ffffff;">
+            <th style="padding: 12px; text-align: left;">Description</th>
+            <th style="padding: 12px; text-align: left;">Category</th>
+            <th style="padding: 12px; text-align: right;">Amount</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="expense : ${expenses}" style="border-bottom: 1px solid #eeeeee;">
+            <td style="padding: 12px;" th:text="${expense.name}"></td>
+            <td style="padding: 12px;" th:text="${expense.categoryName}"></td>
+            <td style="padding: 12px; text-align: right; font-weight: bold;" th:text="${#numbers.formatCurrency(expense.amount)}"></td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr style="background-color: #f7f9fc;">
+            <td colspan="2" style="padding: 15px; text-align: right; font-weight: bold; font-size: 18px; color: #333;">Total Today:</td>
+            <td style="padding: 15px; text-align: right; font-weight: bold; font-size: 18px; color: #d9534f;"
+                th:text="${#numbers.formatCurrency(#aggregates.sum(expenses.![amount]))}"
+                ₹500.00
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+
+    <p style="text-align: center; margin: 30px 0;">
+        <a href="#" th:href="${dashboardUrl}" style="background-color: #28a745; color: #ffffff; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-size: 16px; display: inline-block;">
+            View Full Dashboard
+        </a>
+    </p>
+
+    <hr style="border: none; border-top: 1px solid #eeeeee; margin: 20px 0;">
+    <p style="font-size: 14px; color: #888;">
+        Thank you for using Money Manager!<br>
+        Best regards,<br>
+        The Money Manager Team
+    </p>
+</div>
+
+</body>
+</html>
