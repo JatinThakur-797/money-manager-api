@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activate Your Account</title>
+</head>
+<body style="font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f7f9fc; color: #333;">
+
+<div style="max-width: 600px; margin: auto; background-color: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">
+
+    <div style="text-align: center; border-bottom: 2px solid #eeeeee; padding-bottom: 20px; margin-bottom: 20px;">
+        <h1 style="color: #0056b3; font-size: 24px; margin: 0;">Welcome to Money Manager!</h1>
+        <p style="color: #555; font-size: 16px; margin: 5px 0 0;">Please activate your account.</p>
+    </div>
+
+    <p style="font-size: 16px; line-height: 1.6;">
+        Hi <strong th-text="${userName}">User</strong>,
+    </p>
+
+    <p style="font-size: 16px; line-height: 1.6;">
+        Thank you for registering. Please click the button below to activate your account and start managing your finances.
+    </p>
+
+    <p style="text-align: center; margin: 30px 0;">
+        <a th:href="${activationLink}" style="background-color: #007bff; color: #ffffff; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-size: 16px; display: inline-block;">
+            Activate Your Account
+        </a>
+    </p>
+
+    <p style="font-size: 14px; color: #888; text-align: center;">
+        If you did not create an account, you can safely ignore this email.
+    </p>
+
+    <hr style="border: none; border-top: 1px solid #eeeeee; margin: 20px 0;">
+    <p style="font-size: 14px; color: #888;">
+        Best regards,<br>
+        The Money Manager Team
+    </p>
+</div>
+
+</body>
+</html>

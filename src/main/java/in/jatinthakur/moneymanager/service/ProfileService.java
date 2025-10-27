@@ -14,7 +14,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.spring6.SpringTemplateEngine;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -31,19 +35,34 @@ public class ProfileService {
     private final EmailService emailService;
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
+    private final TemplateEngine templateEngine;
 
     public ProfileDto registerProfile(ProfileDto profileDto) {
+
         System.out.println(profileDto);
         ProfileEntity profileEntity = toEntiy(profileDto);
         profileEntity.setActivationToken(UUID.randomUUID().toString());
         System.out.println(profileEntity);
 
-        //Send Acctivation Email
         String activationLink = activationUrl + "/api/v1.0/activate?token=" + profileEntity.getActivationToken();
-        String subject = "Activate you Money Manager account";
-        String body = "Click on the following link to activate your Money Manager account." + activationLink;
-        emailService.sendEmail(profileEntity.getEmail(), subject, body);
-         return toDto(profileRepo.save(profileEntity));
+        String subject = "Activate your Money Manager account";
+
+        // 2. Create the HTML body right here using Thymeleaf.
+        Context context = new Context();
+        context.setVariable("userName", profileDto.getFullName());
+        context.setVariable("activationLink", activationLink);
+        String htmlBody = templateEngine.process("email/accountActivation", context);
+
+        // 3. Call the simple 3-parameter sendEmail method.
+        emailService.sendEmail(
+                profileEntity.getEmail(),
+                subject,
+                htmlBody  // <-- This is the final HTML string.
+        );
+
+        // --- END: MODIFIED EMAIL LOGIC ---
+
+        return toDto(profileRepo.save(profileEntity));
     }
 
     public ProfileEntity toEntiy(ProfileDto profileDto) {
