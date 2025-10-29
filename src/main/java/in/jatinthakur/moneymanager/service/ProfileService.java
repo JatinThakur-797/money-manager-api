@@ -65,6 +65,11 @@ public class ProfileService {
         return toDto(profileRepo.save(profileEntity));
     }
 
+    //Is User already exists
+    public boolean isUserAlreadyExists(String email) {
+        return profileRepo.existsByEmail(email);
+    }
+
     public ProfileEntity toEntiy(ProfileDto profileDto) {
         return ProfileEntity.builder()
                 .id(profileDto.getId())
