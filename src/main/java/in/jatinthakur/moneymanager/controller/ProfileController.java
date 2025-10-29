@@ -30,7 +30,7 @@ public class ProfileController {
         ProfileDto registeredProfile = profileService.registerProfile(profileDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(registeredProfile);
     }
-    @GetMapping("/activate")
+    @GetMapping("/activate/{token}")
     public ResponseEntity<?> activateProfile(@RequestParam String token) {
         boolean result = profileService.activateProfile(token);
         if(result) {
