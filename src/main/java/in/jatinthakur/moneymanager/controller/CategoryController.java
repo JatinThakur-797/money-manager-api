@@ -1,6 +1,7 @@
 package in.jatinthakur.moneymanager.controller;
 
 import in.jatinthakur.moneymanager.dto.CategoryDTO;
+import in.jatinthakur.moneymanager.repository.CategoryRepo;
 import in.jatinthakur.moneymanager.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,10 +16,16 @@ import java.util.List;
 public class CategoryController {
 
     private final CategoryService categoryService;
+    private final CategoryRepo categoryRepo;
+
     @PostMapping
-    public ResponseEntity<CategoryDTO> saveCategory(@RequestBody CategoryDTO categoryDTO){
+    public ResponseEntity<?> saveCategory(@RequestBody CategoryDTO categoryDTO){
+      try{
         CategoryDTO savedCategory = categoryService.saveCategory(categoryDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedCategory);
+      }catch (RuntimeException e){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+      }
     }
     @GetMapping
     public ResponseEntity<List<CategoryDTO>> getAllCategories(){
@@ -34,7 +41,15 @@ public class CategoryController {
     public ResponseEntity<?> updateCategory(@PathVariable Long categoryId, @RequestBody CategoryDTO categoryDTO){
         CategoryDTO savedCategory = categoryService.updateCategory(categoryId, categoryDTO);
         return ResponseEntity.status(HttpStatus.OK).body(savedCategory);
+    }
 
+    @DeleteMapping("/{categoryId}")
+    public ResponseEntity<?> deleteCategory(@PathVariable Long categoryId){
+        if(categoryRepo.findById(categoryId).isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Category not found");
+        }
+        categoryService.deleteCategory(categoryId);
+        return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 
 

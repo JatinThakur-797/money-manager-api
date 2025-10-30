@@ -30,6 +30,10 @@ public class CategoryService {
         }
     }
 
+    public void deleteCategory(Long id) {
+        categoryRepo.deleteById(id);
+    }
+
 
 //helper methods
 private CategoryEntity toEnity(CategoryDTO categoryDTO , ProfileEntity profile) {
