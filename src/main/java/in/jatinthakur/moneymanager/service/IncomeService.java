@@ -58,7 +58,11 @@ public class IncomeService {
                 .updatedAt(entity.getUpdatedAt())
                 .build();
     }
-
+    public List<IncomeDTO> getAllIncomes(){
+        ProfileEntity profile = profileService.getCurrentProfile();
+        List<IncomeEntity> list = incomeRepo.findByProfileId(profile.getId());
+        return list.stream().map(this::toDTO).toList();
+    }
     //Retrieve all incomes for current month/based on the start date and end date
     public List<IncomeDTO> getCurrentMonthExpensesForCurrentUser(){
         ProfileEntity profile = profileService.getCurrentProfile();

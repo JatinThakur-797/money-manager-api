@@ -58,7 +58,11 @@ public class ExpenseService {
              .updatedAt(entity.getUpdatedAt())
              .build();
     }
-
+    public List<ExpenseDTO> getAllExpensesForCurrentUser(){
+        ProfileEntity profile = profileService.getCurrentProfile();
+        List<ExpenseEntity> list = expenseRepo.findByProfileId(profile.getId());
+        return list.stream().map(this::toDTO).toList();
+    }
     //Retrieve all expenses for current month/based on the start date and end date
     public List<ExpenseDTO> getCurrentMonthExpensesForCurrentUser(){
         ProfileEntity profile = profileService.getCurrentProfile();

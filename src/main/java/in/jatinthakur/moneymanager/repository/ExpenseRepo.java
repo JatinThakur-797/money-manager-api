@@ -29,5 +29,7 @@ public interface ExpenseRepo extends JpaRepository<ExpenseEntity,Long> {
 
     //select * from tbl_expenses where profile_id = ? and date = ?
    List<ExpenseEntity> findByProfileIdAndDate(Long profileId, LocalDate date);
+
+    List<ExpenseEntity> findByProfileId(Long id);
 }
 
