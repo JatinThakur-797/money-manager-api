@@ -6,33 +6,19 @@ It is designed to be consumed by web or mobile clients for expense tracking, inc
 Table of Contents
 
 About
-
 Features
-
 Tech Stack
-
 Getting Started
-
 Prerequisites
-
 Installation
-
 Configuration
-
 Running the Application
-
 API Endpoints
-
 Database
-
 Docker Support
-
 Testing
-
 Contributing
-
 License
-
 Contact
 
 1. About
@@ -44,11 +30,8 @@ Built with scalability and maintainability in mind. It can be extended for authe
 2. Features
 
 Create, Read, Update, Delete (CRUD) Transactions
-
 Manage Categories (expense, income)
-
 Budget creation and tracking
-
 Financial summary and reporting
 
 Standard REST API conventions
@@ -62,36 +45,28 @@ Database	(e.g., MySQL / PostgreSQL / MongoDB — specify)
 Containerization	Docker
 API Format	REST, JSON
 4. Getting Started
+
 Prerequisites
-
 Ensure you have the following installed:
-
 Java 17+ (or version used in pom.xml)
-
 Maven 3.6+
 
 A running database (MySQL/PostgreSQL/other)
-
 Docker & Docker Compose (optional, only if using containers)
 
 Installation
-
 Clone the repository
 
 git clone https://github.com/JatinThakur-797/money-manager-api.git
 cd money-manager-api
-
 
 Install dependencies
 
 mvn clean install
 
 Configuration
-
 Create an application.properties or application.yml file in:
-
 src/main/resources/application.properties
-
 
 Add your configuration (example for MySQL):
 
@@ -213,3 +188,4 @@ This project is licensed under the MIT License.
 
 Maintained by Jatin Thakur
 GitHub: https://github.com/JatinThakur-797
+Live on: https://yourmoneymanager.netlify.app/
